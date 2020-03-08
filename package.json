@@ -1,7 +1,7 @@
 {
-  "name": "neui",
+  "name": "@wufe/neui",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/neui.scss",
   "repository": "https://github.com/Wufe/neui.git",
   "author": "Simone Bembi <simone.bembi@gmail.com>",
   "license": "MIT",
