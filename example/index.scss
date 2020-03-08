@@ -1,0 +1,74 @@
+@import "../src/neui.scss";
+
+$light-bg: #F0F0F3;
+$dark-bg: #424242;
+
+$main-color: $light-bg;
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: $main-color;
+}
+
+* {
+    font-size: 20px;
+    font-weight: 200;
+    font-family: 'Montserrat Alternates', sans-serif;
+    letter-spacing: .2em;
+}
+
+.container {
+    padding: 30px;
+    display: flex;
+
+    > * {
+        margin-left: 20px;
+        margin-top: 20px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    @include neui-button($main-color);
+}
+
+.box {
+    width: 200px;
+    height: 200px;
+    min-width: 200px;
+    min-height: 200px;
+    &.--flat {
+        @include neui-box($main-color, 'flat');
+    }
+    &.--concave {
+        @include neui-box($main-color, 'concave');
+    }
+    &.--convex {
+        @include neui-box($main-color, 'convex');
+    }
+    &.--pressed {
+        @include neui-box($main-color, 'pressed');
+    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input {
+    font-family: inherit;
+}

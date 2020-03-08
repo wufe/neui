@@ -1,0 +1,31 @@
+@import "settings";
+@import "functions";
+@import "mixins";
+
+@mixin neui-button($primary-color: $light-primary-color) {
+    @include neumorphistic-element($primary-color, 'flat', .5) {
+        
+        padding: .8em 1.7em;
+        border: none;
+        background: flat-background($primary-color);
+        
+        cursor: pointer;
+        outline: none;
+    
+        &:hover {
+            background: convex-background($primary-color);
+        }
+    
+        &:active {
+            box-shadow: pressed-shadow($primary-color, .5);
+        }
+
+        @content;
+    };
+}
+
+@mixin neui-box($primary-color: $light-primary-color, $shape: 'flat') {
+    @include neumorphistic-element($primary-color, $shape, .5) {
+        @content;
+    };
+}

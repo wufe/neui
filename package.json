@@ -4,5 +4,12 @@
   "main": "index.js",
   "repository": "https://github.com/Wufe/neui.git",
   "author": "Simone Bembi <simone.bembi@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "parcel serve example/index.html"
+  },
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "sass": "^1.26.2"
+  }
 }

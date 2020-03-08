@@ -1,0 +1,59 @@
+@import "settings";
+
+@function get-lighten-percentage($primary-color) {
+    @return 6.5% * (lightness($primary-color) * .035);
+}
+
+@function get-darken-percentage($primary-color) {
+    @return 6.45% * (lightness($primary-color) * .035);
+}
+
+@function get-text-color($base) {
+    @if (lightness($base) > 50) {
+        @return $dark-text-color;
+    } @else {
+        @return $light-text-color;
+    }
+}
+
+@function flat-background($primary-color: $light-primary-color) {
+    @return $primary-color;
+}
+
+@function flat-shadow($primary-color: $light-primary-color) {
+    $lighten-percentage: get-lighten-percentage($primary-color);
+    $darken-percentage: get-darken-percentage($primary-color);
+    @return $negative-x-offset $negative-y-offset $spread 0 lighten($primary-color, $lighten-percentage),
+        $x-offset $y-offset $spread 0 darken($primary-color, $darken-percentage);
+}
+
+@function concave-background($primary-color: $light-primary-color) {
+    $lighten-percentage: get-lighten-percentage($primary-color);
+    $darken-percentage: get-darken-percentage($primary-color);
+    @return linear-gradient(145deg, darken($primary-color, $darken-percentage * .6), lighten($primary-color, $lighten-percentage * .6));
+}
+
+@function concave-shadow($primary-color: $light-primary-color) {
+    @return flat-shadow($primary-color);
+}
+
+@function convex-background($primary-color: $light-primary-color) {
+    $lighten-percentage: get-lighten-percentage($primary-color);
+    $darken-percentage: get-darken-percentage($primary-color);
+    @return linear-gradient(145deg, lighten($primary-color, $lighten-percentage * .6), darken($primary-color, $darken-percentage * .6));
+}
+
+@function convex-shadow($primary-color: $light-primary-color) {
+    @return flat-shadow($primary-color);
+}
+
+@function pressed-background($primary-color: $light-primary-color) {
+    @return flat-background($primary-color);
+}
+
+@function pressed-shadow($primary-color: $light-primary-color, $inset-offset-modifier: 1) {
+    $lighten-percentage: get-lighten-percentage($primary-color);
+    $darken-percentage: get-darken-percentage($primary-color);
+    @return inset $negative-x-offset * $inset-offset-modifier $negative-y-offset * $inset-offset-modifier $spread 0 lighten($primary-color, $lighten-percentage),
+            inset $x-offset * $inset-offset-modifier $y-offset * $inset-offset-modifier $spread 0 darken($primary-color, $darken-percentage);
+}

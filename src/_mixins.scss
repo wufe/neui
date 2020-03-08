@@ -1,0 +1,24 @@
+@import "settings";
+@import "functions";
+
+
+@mixin neumorphistic-element($primary-color: $light-primary-color, $shape: 'flat', $inset-offset-modifier: 1) {
+    border-radius: 10%;
+    $text-color: get-text-color($primary-color);
+    color: $text-color;
+    @if ($shape == 'flat') {
+        background: flat-background($primary-color);
+        box-shadow: flat-shadow($primary-color);
+    } @else if ($shape == 'concave') {
+        background: concave-background($primary-color);
+        box-shadow: concave-shadow($primary-color);
+    } @else if ($shape == 'convex') {
+        background: convex-background($primary-color);
+        box-shadow: convex-shadow($primary-color);
+    } @else if ($shape == 'pressed') {
+        background: pressed-background($primary-color);
+        box-shadow: pressed-shadow($primary-color, $inset-offset-modifier);
+    }
+    
+    @content;
+}
