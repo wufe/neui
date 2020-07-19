@@ -1,24 +1,46 @@
 @import "settings";
 @import "functions";
 
+@mixin flat($primary-color: $light-primary-color) {
+    background: flat-background($primary-color);
+    box-shadow: flat-shadow($primary-color);
+}
 
-@mixin neumorphistic-element($primary-color: $light-primary-color, $shape: 'flat', $inset-offset-modifier: 1) {
-    border-radius: 10%;
+@mixin flat-noshadow($primary-color: $light-primary-color) {
+    background: flat-background($primary-color);
+}
+
+@mixin concave($primary-color: $light-primary-color) {
+    background: concave-background($primary-color);
+    box-shadow: concave-shadow($primary-color);
+}
+
+@mixin convex($primary-color: $light-primary-color) {
+    background: convex-background($primary-color);
+    box-shadow: convex-shadow($primary-color);
+}
+
+@mixin pressed($primary-color: $light-primary-color, $inset-offset-modifier: 1) {
+    background: pressed-background($primary-color);
+    box-shadow: pressed-shadow($primary-color, $inset-offset-modifier);
+}
+
+@mixin neumorphistic-element($primary-color: $light-primary-color, $shape: 'flat', $inset-offset-modifier: 1, $border-radius: 20px) {
+    border-radius: $border-radius;
     $text-color: get-text-color($primary-color);
     color: $text-color;
     @if ($shape == 'flat') {
-        background: flat-background($primary-color);
-        box-shadow: flat-shadow($primary-color);
+        @include flat($primary-color);
     } @else if ($shape == 'concave') {
-        background: concave-background($primary-color);
-        box-shadow: concave-shadow($primary-color);
+        @include concave($primary-color);
     } @else if ($shape == 'convex') {
-        background: convex-background($primary-color);
-        box-shadow: convex-shadow($primary-color);
+        @include convex($primary-color);
     } @else if ($shape == 'pressed') {
-        background: pressed-background($primary-color);
-        box-shadow: pressed-shadow($primary-color, $inset-offset-modifier);
+        @include pressed($primary-color, $inset-offset-modifier);
+    } @else if ($shape == 'flat-noshadow') {
+        @include flat-noshadow($primary-color);
     }
     
     @content;
 }
+

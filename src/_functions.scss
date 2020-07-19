@@ -16,6 +16,14 @@
     }
 }
 
+@function get-separator-color($base) {
+    @if (lightness($base) > 50) {
+        @return lighten($base, 5%);
+    } @else {
+        @return darken($base, 5%);
+    }
+}
+
 @function flat-background($primary-color: $light-primary-color) {
     @return $primary-color;
 }

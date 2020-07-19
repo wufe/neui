@@ -1,0 +1,73 @@
+@import "../settings";
+@import "../functions";
+@import "../mixins";
+
+@mixin neui-button($primary-color: $light-primary-color, $shape: 'flat') {
+    @include neumorphistic-element($primary-color, $shape, .5, .5em) {
+        
+        padding: .8em 1.7em;
+        border: none;
+        background: flat-background($primary-color);
+        font-size: .9em;
+        
+        cursor: pointer;
+        outline: none;
+        white-space: nowrap;
+    
+        &:hover {
+            &:not([disabled]) {
+                @include neui-button-hover($primary-color);
+            }
+        }
+    
+        &:active {
+            @include neui-button-active($primary-color);
+        }
+
+        &[disabled] {
+            opacity: .7;
+            cursor: initial;
+        }
+
+        @content;
+    };
+}
+
+@mixin neui-button-hover($primary-color: $light-primary-color) {
+    background: convex-background($primary-color);
+}
+
+@mixin neui-button-active($primary-color: $light-primary-color) {
+    box-shadow: pressed-shadow($primary-color, .5);
+}
+
+%neui-button-light {
+    $primary-color: $light-primary-color;
+    @include neui-button($primary-color) {
+        &:hover {
+            @include neui-button-hover($primary-color);
+        }
+
+        &:active, &.--active {
+            @include neui-button-active($primary-color);
+        }
+    }
+}
+
+%neui-button-dark {
+    $primary-color: $dark-primary-color;
+    @include neui-button($primary-color) {
+        &:hover {
+            @include neui-button-hover($primary-color);
+        }
+
+        &:active, &.--active {
+            @include neui-button-active($primary-color);
+        }
+    }
+}
+
+%neui-button {
+    @extend %neui-button-light;
+}
+

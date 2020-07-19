@@ -1,0 +1,42 @@
+@import "../settings";
+@import "../functions";
+@import "../mixins";
+
+@mixin neui-group($primary-color: $light-primary-color) {
+    @include neumorphistic-element($primary-color, 'flat', 1, .5em) {
+        @content;
+        display: flex;
+        align-items: stretch;
+        background-color: get-separator-color($primary-color);
+        
+        > * {
+            &.--spaced {
+                font-size: .9em;
+
+                &:not(.--separator) {
+                    margin-left: .7em;
+                    margin-right: .7em;
+                    margin-top: .7em;
+                    margin-bottom: .7em;
+                }
+
+                &:first-child {
+                    margin-left: 1em;
+                }
+    
+                &:last-child {
+                    margin-right: 1em;
+                }
+            }
+
+            &:not(:first-child) {
+                margin-left: 2px;
+            }
+
+            // &.--separator {
+            //     width: 2px;
+            //     background-color: get-separator-color($primary-color);
+            // }
+        }
+    };
+}

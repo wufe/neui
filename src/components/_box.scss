@@ -1,0 +1,23 @@
+@import "../settings";
+@import "../functions";
+@import "../mixins";
+
+@mixin neui-box($primary-color: $light-primary-color, $shape: 'flat') {
+    @include neumorphistic-element($primary-color, $shape, .5) {
+        @content;
+    };
+}
+
+%neui-box-light {
+    $primary-color: $light-primary-color;
+    @include neui-box($primary-color);
+}
+
+%neui-box-dark {
+    $primary-color: $dark-primary-color;
+    @include neui-box($primary-color);
+}
+
+%neui-box {
+    @include neui-box;
+}
