@@ -28,11 +28,24 @@
     @return $primary-color;
 }
 
-@function flat-shadow($primary-color: $light-primary-color) {
+@function flat-shadow(
+    $primary-color: $light-primary-color,
+    $shadow-spread: $spread,
+    $shadow-offset: null,
+    $shadow-alpha: 1) {
+
+    $x-off: $x-offset;
+    $y-off: $y-offset;
+
+    @if $shadow-offset != null {
+        $x-off: $shadow-offset;
+        $y-off: $shadow-offset;
+    }
+
     $lighten-percentage: get-lighten-percentage($primary-color);
     $darken-percentage: get-darken-percentage($primary-color);
-    @return $negative-x-offset $negative-y-offset $spread 0 lighten($primary-color, $lighten-percentage),
-        $x-offset $y-offset $spread 0 darken($primary-color, $darken-percentage);
+    @return #{$x-off * -1} #{$y-off * -1} $shadow-spread 0 rgba(lighten($primary-color, $lighten-percentage), $shadow-alpha),
+        $x-off $y-off $shadow-spread 0 rgba(darken($primary-color, $darken-percentage), $shadow-alpha);
 }
 
 @function concave-background($primary-color: $light-primary-color) {
@@ -51,8 +64,8 @@
     @return linear-gradient(145deg, lighten($primary-color, $lighten-percentage * .6), darken($primary-color, $darken-percentage * .6));
 }
 
-@function convex-shadow($primary-color: $light-primary-color) {
-    @return flat-shadow($primary-color);
+@function convex-shadow($primary-color: $light-primary-color, $shadow-spread: $spread, $shadow-offset: null, $shadow-alpha: 1) {
+    @return flat-shadow($primary-color, $shadow-spread, $shadow-offset, $shadow-alpha);
 }
 
 @function pressed-background($primary-color: $light-primary-color) {

@@ -15,9 +15,13 @@
     box-shadow: concave-shadow($primary-color);
 }
 
-@mixin convex($primary-color: $light-primary-color) {
+@mixin convex(
+    $primary-color: $light-primary-color,
+    $shadow-spread: $spread,
+    $shadow-offset: null,
+    $shadow-alpha: 1) {
     background: convex-background($primary-color);
-    box-shadow: convex-shadow($primary-color);
+    box-shadow: convex-shadow($primary-color, $shadow-spread, $shadow-offset, $shadow-alpha);
 }
 
 @mixin pressed($primary-color: $light-primary-color, $inset-offset-modifier: 1) {
