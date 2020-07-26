@@ -1,35 +1,51 @@
 @import "settings";
 @import "functions";
 
-@mixin flat($primary-color: $light-primary-color) {
+@mixin flat(
+    $primary-color: $light-primary-color,
+    $offset-modifier: 1,
+    $shadow-spread: $spread,
+    $shadow-offset: null,
+    $shadow-alpha: 1) {
     background: flat-background($primary-color);
-    box-shadow: flat-shadow($primary-color);
+    box-shadow: flat-shadow($primary-color, $offset-modifier, $shadow-spread, $shadow-offset, $shadow-alpha);
 }
 
 @mixin flat-noshadow($primary-color: $light-primary-color) {
     background: flat-background($primary-color);
 }
 
-@mixin concave($primary-color: $light-primary-color) {
+@mixin concave(
+    $primary-color: $light-primary-color,
+    $offset-modifier: 1,
+    $shadow-spread: $spread,
+    $shadow-offset: null,
+    $shadow-alpha: 1) {
     background: concave-background($primary-color);
-    box-shadow: concave-shadow($primary-color);
+    box-shadow: concave-shadow($primary-color, $offset-modifier, $shadow-spread, $shadow-offset, $shadow-alpha);
 }
 
 @mixin convex(
     $primary-color: $light-primary-color,
+    $offset-modifier: 1,
     $shadow-spread: $spread,
     $shadow-offset: null,
     $shadow-alpha: 1) {
     background: convex-background($primary-color);
-    box-shadow: convex-shadow($primary-color, $shadow-spread, $shadow-offset, $shadow-alpha);
+    box-shadow: convex-shadow($primary-color, $offset-modifier, $shadow-spread, $shadow-offset, $shadow-alpha);
 }
 
-@mixin pressed($primary-color: $light-primary-color, $inset-offset-modifier: 1) {
+@mixin pressed(
+    $primary-color: $light-primary-color,
+    $offset-modifier: 1,
+    $shadow-spread: $spread,
+    $shadow-offset: null,
+    $shadow-alpha: 1) {
     background: pressed-background($primary-color);
-    box-shadow: pressed-shadow($primary-color, $inset-offset-modifier);
+    box-shadow: pressed-shadow($primary-color, $offset-modifier, $shadow-spread, $shadow-offset, $shadow-alpha);
 }
 
-@mixin neumorphistic-element($primary-color: $light-primary-color, $shape: 'flat', $inset-offset-modifier: 1, $border-radius: 20px) {
+@mixin neumorphistic-element($primary-color: $light-primary-color, $shape: 'flat', $offset-modifier: 1, $border-radius: 20px) {
     border-radius: $border-radius;
     $text-color: get-text-color($primary-color);
     color: $text-color;
@@ -40,7 +56,7 @@
     } @else if ($shape == 'convex') {
         @include convex($primary-color);
     } @else if ($shape == 'pressed') {
-        @include pressed($primary-color, $inset-offset-modifier);
+        @include pressed($primary-color, $offset-modifier);
     } @else if ($shape == 'flat-noshadow') {
         @include flat-noshadow($primary-color);
     }

@@ -30,6 +30,7 @@
 
 @function flat-shadow(
     $primary-color: $light-primary-color,
+    $offset-modifier: 1,
     $shadow-spread: $spread,
     $shadow-offset: null,
     $shadow-alpha: 1) {
@@ -44,8 +45,8 @@
 
     $lighten-percentage: get-lighten-percentage($primary-color);
     $darken-percentage: get-darken-percentage($primary-color);
-    @return #{$x-off * -1} #{$y-off * -1} $shadow-spread 0 rgba(lighten($primary-color, $lighten-percentage), $shadow-alpha),
-        $x-off $y-off $shadow-spread 0 rgba(darken($primary-color, $darken-percentage), $shadow-alpha);
+    @return ($x-off * -1) * $offset-modifier ($y-off * -1) * $offset-modifier $shadow-spread 0 rgba(lighten($primary-color, $lighten-percentage), $shadow-alpha),
+        $x-off * $offset-modifier $y-off * $offset-modifier $shadow-spread 0 rgba(darken($primary-color, $darken-percentage), $shadow-alpha);
 }
 
 @function concave-background($primary-color: $light-primary-color) {
@@ -54,8 +55,13 @@
     @return linear-gradient(145deg, darken($primary-color, $darken-percentage * .6), lighten($primary-color, $lighten-percentage * .6));
 }
 
-@function concave-shadow($primary-color: $light-primary-color) {
-    @return flat-shadow($primary-color);
+@function concave-shadow(
+    $primary-color: $light-primary-color,
+    $offset-modifier: 1,
+    $shadow-spread: $spread,
+    $shadow-offset: null,
+    $shadow-alpha: 1) {
+    @return flat-shadow($primary-color, $offset-modifier, $shadow-spread, $shadow-offset, $shadow-alpha);
 }
 
 @function convex-background($primary-color: $light-primary-color) {
@@ -64,17 +70,36 @@
     @return linear-gradient(145deg, lighten($primary-color, $lighten-percentage * .6), darken($primary-color, $darken-percentage * .6));
 }
 
-@function convex-shadow($primary-color: $light-primary-color, $shadow-spread: $spread, $shadow-offset: null, $shadow-alpha: 1) {
-    @return flat-shadow($primary-color, $shadow-spread, $shadow-offset, $shadow-alpha);
+@function convex-shadow(
+    $primary-color: $light-primary-color,
+    $offset-modifier: 1,
+    $shadow-spread: $spread,
+    $shadow-offset: null,
+    $shadow-alpha: 1) {
+    @return flat-shadow($primary-color, $offset-modifier, $shadow-spread, $shadow-offset, $shadow-alpha);
 }
 
 @function pressed-background($primary-color: $light-primary-color) {
     @return flat-background($primary-color);
 }
 
-@function pressed-shadow($primary-color: $light-primary-color, $inset-offset-modifier: 1) {
+@function pressed-shadow(
+    $primary-color: $light-primary-color,
+    $offset-modifier: 1,
+    $shadow-spread: $spread,
+    $shadow-offset: null,
+    $shadow-alpha: 1) {
+
+    $x-off: $x-offset;
+    $y-off: $y-offset;
+
+    @if $shadow-offset != null {
+        $x-off: $shadow-offset;
+        $y-off: $shadow-offset;
+    }
+
     $lighten-percentage: get-lighten-percentage($primary-color);
     $darken-percentage: get-darken-percentage($primary-color);
-    @return inset $negative-x-offset * $inset-offset-modifier $negative-y-offset * $inset-offset-modifier $spread 0 lighten($primary-color, $lighten-percentage),
-            inset $x-offset * $inset-offset-modifier $y-offset * $inset-offset-modifier $spread 0 darken($primary-color, $darken-percentage);
+    @return inset ($x-off * -1) * $offset-modifier ($y-off * -1) * $offset-modifier $shadow-spread 0 rgba(lighten($primary-color, $lighten-percentage), $shadow-alpha),
+            inset $x-off * $offset-modifier $y-off * $offset-modifier $shadow-spread 0 rgba(darken($primary-color, $darken-percentage), $shadow-alpha);
 }
